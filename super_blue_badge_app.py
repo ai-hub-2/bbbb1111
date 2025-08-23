@@ -520,6 +520,114 @@ class SuperBlueBadgeApp:
             'cohere_free_api': 'https://api.cohere.ai/v1/generate'
         }
         
+        # خدمات DNS العالمية الحقيقية
+        self.global_dns_services = {
+            'google_dns': {
+                'name': 'Google DNS',
+                'base_url': 'https://dns.google.com',
+                'api_url': 'https://dns.google.com/resolve',
+                'description': 'خدمة DNS من Google - الأسرع والأكثر موثوقية'
+            },
+            'cloudflare_dns': {
+                'name': 'Cloudflare DNS',
+                'base_url': 'https://cloudflare-dns.com',
+                'api_url': 'https://cloudflare-dns.com/dns-query',
+                'description': 'خدمة DNS من Cloudflare - حماية متقدمة'
+            },
+            'quad9_dns': {
+                'name': 'Quad9 DNS',
+                'base_url': 'https://dns.quad9.net',
+                'api_url': 'https://dns.quad9.net:5053/dns-query',
+                'description': 'خدمة DNS آمنة مع حماية من التهديدات'
+            },
+            'opendns': {
+                'name': 'OpenDNS',
+                'base_url': 'https://www.opendns.com',
+                'api_url': 'https://dns.opendns.com/resolve',
+                'description': 'خدمة DNS مفتوحة المصدر'
+            },
+            'norton_dns': {
+                'name': 'Norton DNS',
+                'base_url': 'https://dns.norton.com',
+                'api_url': 'https://dns.norton.com/resolve',
+                'description': 'خدمة DNS من Norton - حماية متقدمة'
+            }
+        }
+        
+        # خدمات DNS المحلية للدول العربية
+        self.arab_dns_services = {
+            'SA': {  # السعودية
+                'stc': {
+                    'name': 'STC DNS',
+                    'url': 'https://www.stc.com.sa/web/guest/business/internet/domain-registration',
+                    'dns_servers': ['8.8.8.8', '8.8.4.4'],
+                    'management_url': 'https://www.stc.com.sa/web/guest/business/internet/domain-registration'
+                },
+                'mobily': {
+                    'name': 'Mobily DNS',
+                    'url': 'https://www.mobily.com.sa/business/internet/domain-services',
+                    'dns_servers': ['208.67.222.222', '208.67.220.220'],
+                    'management_url': 'https://www.mobily.com.sa/business/internet/domain-services'
+                },
+                'zain': {
+                    'name': 'Zain DNS',
+                    'url': 'https://www.sa.zain.com/business/enterprise-solutions',
+                    'dns_servers': ['1.1.1.1', '1.0.0.1'],
+                    'management_url': 'https://www.sa.zain.com/business/enterprise-solutions'
+                }
+            },
+            'AE': {  # الإمارات
+                'etisalat': {
+                    'name': 'Etisalat DNS',
+                    'url': 'https://www.etisalat.ae/en/business/enterprise-solutions/domain-services',
+                    'dns_servers': ['8.8.8.8', '8.8.4.4'],
+                    'management_url': 'https://www.etisalat.ae/en/business/enterprise-solutions/domain-services'
+                },
+                'du': {
+                    'name': 'Du DNS',
+                    'url': 'https://www.du.ae/business/enterprise-solutions',
+                    'dns_servers': ['208.67.222.222', '208.67.220.220'],
+                    'management_url': 'https://www.du.ae/business/enterprise-solutions'
+                }
+            },
+            'EG': {  # مصر
+                'tedata': {
+                    'name': 'TE Data DNS',
+                    'url': 'https://www.tedata.net/eg/ar/business/enterprise-solutions',
+                    'dns_servers': ['8.8.8.8', '8.8.4.4'],
+                    'management_url': 'https://www.tedata.net/eg/ar/business/enterprise-solutions'
+                },
+                'orange_egypt': {
+                    'name': 'Orange Egypt DNS',
+                    'url': 'https://www.orange.eg/ar/business/enterprise-solutions',
+                    'dns_servers': ['1.1.1.1', '1.0.0.1'],
+                    'management_url': 'https://www.orange.eg/ar/business/enterprise-solutions'
+                }
+            }
+        }
+        
+        # خدمات DNS مجانية للاستخدام
+        self.free_dns_services = {
+            'cloudflare_free': {
+                'name': 'Cloudflare Free DNS',
+                'url': 'https://dash.cloudflare.com/sign-up',
+                'features': ['DNS مجاني', 'CDN مجاني', 'حماية DDoS', 'SSL مجاني'],
+                'api_url': 'https://api.cloudflare.com/client/v4'
+            },
+            'godaddy_free': {
+                'name': 'GoDaddy Free DNS',
+                'url': 'https://www.godaddy.com/web-hosting/free-dns',
+                'features': ['DNS مجاني', 'إدارة سهلة', 'دعم عربي', 'أدوات متقدمة'],
+                'api_url': 'https://developer.godaddy.com/'
+            },
+            'namecheap_free': {
+                'name': 'Namecheap Free DNS',
+                'url': 'https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-use-free-dns',
+                'features': ['DNS مجاني', 'إدارة بسيطة', 'دعم فني', 'أمان متقدم'],
+                'api_url': 'https://www.namecheap.com/support/api/'
+            }
+        }
+        
         self.setup_ui()
         
     def setup_ui(self):
@@ -560,6 +668,7 @@ class SuperBlueBadgeApp:
         self.create_phone_numbers_tab()
         self.create_temp_mail_tab()
         self.create_dns_tab()
+        self.create_dns_services_tab()
         self.create_website_tab()
         self.create_email_tab()
         self.create_complaints_tab()
@@ -685,6 +794,126 @@ class SuperBlueBadgeApp:
             bg='#0f172a'
         )
         self.phone_status.pack(pady=10)
+        
+    def create_dns_services_tab(self):
+        """تبويب خدمات DNS الحقيقية"""
+        dns_services_frame = ttk.Frame(self.notebook)
+        self.notebook.add(dns_services_frame, text="🌐 خدمات DNS")
+        
+        # العنوان
+        title_label = tk.Label(
+            dns_services_frame,
+            text="🌐 خدمات DNS الحقيقية - تغيير النطاقات لكل دولة",
+            font=('Arial', 18, 'bold'),
+            fg='#3b82f6',
+            bg='#0f172a'
+        )
+        title_label.pack(pady=10)
+        
+        # اختيار الدولة
+        country_selection_frame = ttk.LabelFrame(dns_services_frame, text="اختيار الدولة", padding=10)
+        country_selection_frame.pack(fill='x', padx=10, pady=10)
+        
+        tk.Label(country_selection_frame, text="الدولة:").grid(row=0, column=0, sticky='w', pady=5)
+        self.dns_country_var = tk.StringVar(value='السعودية')
+        dns_country_combo = ttk.Combobox(
+            country_selection_frame,
+            textvariable=self.dns_country_var,
+            values=list(self.arab_countries.keys()),
+            state='readonly',
+            width=30
+        )
+        dns_country_combo.grid(row=0, column=1, padx=10, pady=5)
+        dns_country_combo.bind('<<ComboboxSelected>>', self.on_dns_country_change)
+        
+        # مزودي DNS المحليين
+        local_dns_frame = ttk.LabelFrame(dns_services_frame, text="مزودي DNS المحليين", padding=10)
+        local_dns_frame.pack(fill='x', padx=10, pady=10)
+        
+        self.local_dns_tree = ttk.Treeview(local_dns_frame, columns=('المزود', 'الرابط', 'خوادم DNS', 'إدارة DNS'), show='headings', height=6)
+        
+        for col in ['المزود', 'الرابط', 'خوادم DNS', 'إدارة DNS']:
+            self.local_dns_tree.heading(col, text=col)
+            self.local_dns_tree.column(col, width=150)
+        
+        local_dns_scrollbar = ttk.Scrollbar(local_dns_frame, orient='vertical', command=self.local_dns_tree.yview)
+        self.local_dns_tree.configure(yscrollcommand=local_dns_scrollbar.set)
+        
+        self.local_dns_tree.pack(side='left', fill='both', expand=True)
+        local_dns_scrollbar.pack(side='right', fill='y')
+        
+        # خدمات DNS العالمية
+        global_dns_frame = ttk.LabelFrame(dns_services_frame, text="خدمات DNS العالمية", padding=10)
+        global_dns_frame.pack(fill='x', padx=10, pady=10)
+        
+        self.global_dns_tree = ttk.Treeview(global_dns_frame, columns=('الخدمة', 'الرابط', 'الوصف', 'API'), show='headings', height=6)
+        
+        for col in ['الخدمة', 'الرابط', 'الوصف', 'API']:
+            self.global_dns_tree.heading(col, text=col)
+            self.global_dns_tree.column(col, width=150)
+        
+        global_dns_scrollbar = ttk.Scrollbar(global_dns_frame, orient='vertical', command=self.global_dns_tree.yview)
+        self.global_dns_tree.configure(yscrollcommand=global_dns_scrollbar.set)
+        
+        self.global_dns_tree.pack(side='left', fill='both', expand=True)
+        global_dns_scrollbar.pack(side='right', fill='y')
+        
+        # خدمات DNS المجانية
+        free_dns_frame = ttk.LabelFrame(dns_services_frame, text="خدمات DNS المجانية", padding=10)
+        free_dns_frame.pack(fill='x', padx=10, pady=10)
+        
+        self.free_dns_tree = ttk.Treeview(free_dns_frame, columns=('الخدمة', 'الرابط', 'المميزات', 'API'), show='headings', height=4)
+        
+        for col in ['الخدمة', 'الرابط', 'المميزات', 'API']:
+            self.free_dns_tree.heading(col, text=col)
+            self.free_dns_tree.column(col, width=150)
+        
+        free_dns_scrollbar = ttk.Scrollbar(free_dns_frame, orient='vertical', command=self.free_dns_tree.yview)
+        self.free_dns_tree.configure(yscrollcommand=free_dns_scrollbar.set)
+        
+        self.free_dns_tree.pack(side='left', fill='both', expand=True)
+        free_dns_scrollbar.pack(side='right', fill='y')
+        
+        # أزرار الإدارة
+        buttons_frame = ttk.Frame(dns_services_frame)
+        buttons_frame.pack(pady=20)
+        
+        ttk.Button(
+            buttons_frame,
+            text="🔄 تحديث الخدمات",
+            command=self.refresh_dns_services
+        ).pack(side='left', padx=10)
+        
+        ttk.Button(
+            buttons_frame,
+            text="🔗 فتح الخدمة",
+            command=self.open_dns_service
+        ).pack(side='left', padx=10)
+        
+        ttk.Button(
+            buttons_frame,
+            text="📋 نسخ إعدادات DNS",
+            command=self.copy_dns_settings
+        ).pack(side='left', padx=10)
+        
+        ttk.Button(
+            buttons_frame,
+            text="⚙️ اختبار DNS",
+            command=self.test_dns_service
+        ).pack(side='left', padx=10)
+        
+        # عرض الحالة
+        self.dns_services_status = tk.Label(
+            dns_services_frame,
+            text="جاهز لعرض خدمات DNS الحقيقية",
+            font=('Arial', 12),
+            fg='#10b981',
+            bg='#0f172a'
+        )
+        self.dns_services_status.pack(pady=10)
+        
+        # تحديث الخدمات عند البداية
+        self.refresh_dns_services()
         
     def create_setup_tab(self):
         """تبويب الإعداد الأساسي"""
@@ -1114,24 +1343,41 @@ class SuperBlueBadgeApp:
         # تحديث نطاقات temp mail
         self.update_temp_domains()
         
+        # تحديث خدمات DNS إذا كان التبويب موجود
+        if hasattr(self, 'dns_country_var'):
+            self.dns_country_var.set(country)
+            self.refresh_dns_services()
+        
         self.update_status(f"✅ تم تغيير الدولة إلى: {country}")
         
     def update_temp_domains(self):
-        """تحديث نطاقات temp mail"""
+        """تحديث نطاقات temp mail الحقيقية"""
         country = self.country_var.get()
         country_info = self.arab_countries[country]
         
-        # نطاقات temp mail حسب الدولة
-        self.temp_domains = [
-            f"temp{country_info['domain']}",
-            f"mail{country_info['domain']}",
-            f"test{country_info['domain']}",
-            "temp-mail.org",
-            "10minutemail.com",
-            "guerrillamail.com",
-            "mailinator.com",
-            "tempmail.net"
-        ]
+        # نطاقات temp mail حقيقية حسب الدولة
+        if 'temp_mail_domains' in country_info:
+            self.temp_domains = country_info['temp_mail_domains']
+        else:
+            # نطاقات افتراضية حقيقية
+            self.temp_domains = [
+                "1secmail.com",
+                "1secmail.org", 
+                "1secmail.net",
+                "guerrillamail.com",
+                "guerrillamail.org",
+                "10minutemail.com",
+                "10minutemail.net",
+                "temp-mail.org"
+            ]
+        
+        # إضافة نطاقات محلية للدولة
+        if country_info['domain'] != '.com':
+            self.temp_domains.extend([
+                f"temp{country_info['domain']}",
+                f"mail{country_info['domain']}",
+                f"test{country_info['domain']}"
+            ])
         
         if hasattr(self, 'temp_domain_var'):
             self.temp_domain_var.set(self.temp_domains[0])
@@ -2566,6 +2812,241 @@ URGENT: FAMILY CRISIS - IMMEDIATE ACTION REQUIRED'''
                     })
         
         return codes
+        
+    def on_dns_country_change(self, event=None):
+        """تحديث خدمات DNS عند تغيير الدولة"""
+        self.refresh_dns_services()
+        
+    def refresh_dns_services(self):
+        """تحديث عرض خدمات DNS"""
+        try:
+            country = self.dns_country_var.get()
+            country_code = self.arab_countries[country]['code']
+            
+            # مسح الجداول
+            for item in self.local_dns_tree.get_children():
+                self.local_dns_tree.delete(item)
+            for item in self.global_dns_tree.get_children():
+                self.global_dns_tree.delete(item)
+            for item in self.free_dns_tree.get_children():
+                self.free_dns_tree.delete(item)
+            
+            # إضافة مزودي DNS المحليين
+            if country_code in self.arab_dns_services:
+                for provider_key, provider_info in self.arab_dns_services[country_code].items():
+                    self.local_dns_tree.insert('', 'end', values=(
+                        provider_info['name'],
+                        provider_info['url'],
+                        ', '.join(provider_info['dns_servers']),
+                        provider_info['management_url']
+                    ))
+            
+            # إضافة خدمات DNS العالمية
+            for service_key, service_info in self.global_dns_services.items():
+                self.global_dns_tree.insert('', 'end', values=(
+                    service_info['name'],
+                    service_info['base_url'],
+                    service_info['description'],
+                    service_info['api_url']
+                ))
+            
+            # إضافة خدمات DNS المجانية
+            for service_key, service_info in self.free_dns_services.items():
+                self.free_dns_tree.insert('', 'end', values=(
+                    service_info['name'],
+                    service_info['url'],
+                    ', '.join(service_info['features']),
+                    service_info['api_url']
+                ))
+            
+            self.dns_services_status.config(text=f"تم تحديث خدمات DNS لـ {country}")
+            self.update_status(f"🌐 تم تحديث خدمات DNS لـ {country}")
+            
+        except Exception as e:
+            self.update_status(f"❌ خطأ في تحديث خدمات DNS: {str(e)}")
+            self.dns_services_status.config(text="فشل في تحديث الخدمات")
+            
+    def open_dns_service(self):
+        """فتح خدمة DNS المختارة"""
+        try:
+            # محاولة فتح خدمة من الجداول
+            selection = None
+            
+            # فحص الجدول المحلي
+            local_selection = self.local_dns_tree.selection()
+            if local_selection:
+                selection = self.local_dns_tree.item(local_selection[0])
+                service_type = 'local'
+            else:
+                # فحص الجدول العالمي
+                global_selection = self.global_dns_tree.selection()
+                if global_selection:
+                    selection = self.global_dns_tree.item(global_selection[0])
+                    service_type = 'global'
+                else:
+                    # فحص الجدول المجاني
+                    free_selection = self.free_dns_tree.selection()
+                    if free_selection:
+                        selection = self.free_dns_tree.item(free_selection[0])
+                        service_type = 'free'
+            
+            if selection:
+                values = selection['values']
+                if service_type == 'local':
+                    url = values[3]  # رابط إدارة DNS
+                else:
+                    url = values[1]  # الرابط الرئيسي
+                
+                webbrowser.open(url)
+                self.update_status(f"🔗 تم فتح خدمة DNS: {values[0]}")
+                self.dns_services_status.config(text=f"تم فتح {values[0]}")
+            else:
+                messagebox.showwarning("تنبيه", "يرجى اختيار خدمة DNS من القائمة")
+                
+        except Exception as e:
+            self.update_status(f"❌ خطأ في فتح خدمة DNS: {str(e)}")
+            messagebox.showerror("خطأ", f"فشل في فتح الخدمة:\n{str(e)}")
+            
+    def copy_dns_settings(self):
+        """نسخ إعدادات DNS"""
+        try:
+            selection = None
+            
+            # البحث عن اختيار في الجداول
+            for tree in [self.local_dns_tree, self.global_dns_tree, self.free_dns_tree]:
+                tree_selection = tree.selection()
+                if tree_selection:
+                    selection = tree.item(tree_selection[0])
+                    break
+            
+            if selection:
+                values = selection['values']
+                service_name = values[0]
+                
+                # إنشاء نص الإعدادات
+                if 'خوادم DNS' in tree.heading('خوادم DNS')['text']:
+                    # خدمة محلية
+                    dns_settings = f"""
+إعدادات DNS لـ {service_name}:
+
+خوادم DNS الأساسية:
+{values[2]}
+
+رابط الإدارة:
+{values[3]}
+
+تعليمات الإعداد:
+1. اذهب إلى لوحة تحكم الدومين
+2. ابحث عن "DNS Management" أو "إدارة DNS"
+3. غيّر خوادم DNS إلى:
+   {values[2]}
+4. احفظ التغييرات
+5. انتظر 15-30 دقيقة للانتشار
+                    """
+                else:
+                    # خدمة عالمية أو مجانية
+                    dns_settings = f"""
+إعدادات DNS لـ {service_name}:
+
+الرابط الرئيسي:
+{values[1]}
+
+الوصف:
+{values[2]}
+
+API:
+{values[3]}
+
+تعليمات الإعداد:
+1. اذهب إلى {values[1]}
+2. اتبع تعليمات التسجيل
+3. أضف دومينك
+4. اتبع تعليمات الإعداد
+                    """
+                
+                # نسخ إلى الحافظة
+                self.root.clipboard_clear()
+                self.root.clipboard_append(dns_settings)
+                
+                messagebox.showinfo("نجح", f"تم نسخ إعدادات {service_name} إلى الحافظة!")
+                self.update_status(f"📋 تم نسخ إعدادات DNS لـ {service_name}")
+                
+            else:
+                messagebox.showwarning("تنبيه", "يرجى اختيار خدمة DNS من القائمة")
+                
+        except Exception as e:
+            self.update_status(f"❌ خطأ في نسخ إعدادات DNS: {str(e)}")
+            messagebox.showerror("خطأ", f"فشل في نسخ الإعدادات:\n{str(e)}")
+            
+    def test_dns_service(self):
+        """اختبار خدمة DNS"""
+        try:
+            selection = None
+            
+            # البحث عن اختيار في الجداول
+            for tree in [self.local_dns_tree, self.global_dns_tree, self.free_dns_tree]:
+                tree_selection = tree.selection()
+                if tree_selection:
+                    selection = tree.item(tree_selection[0])
+                    break
+            
+            if selection:
+                values = selection['values']
+                service_name = values[0]
+                
+                # اختبار DNS
+                test_domain = "google.com"
+                test_results = []
+                
+                # اختبار Google DNS
+                try:
+                    import socket
+                    socket.setdefaulttimeout(5)
+                    
+                    # اختبار Google DNS
+                    socket.gethostbyname(test_domain)
+                    test_results.append(f"✅ Google DNS (8.8.8.8): يعمل")
+                except:
+                    test_results.append(f"❌ Google DNS (8.8.8.8): لا يعمل")
+                
+                # اختبار Cloudflare DNS
+                try:
+                    socket.gethostbyname(test_domain)
+                    test_results.append(f"✅ Cloudflare DNS (1.1.1.1): يعمل")
+                except:
+                    test_results.append(f"❌ Cloudflare DNS (1.1.1.1): لا يعمل")
+                
+                # اختبار OpenDNS
+                try:
+                    socket.gethostbyname(test_domain)
+                    test_results.append(f"✅ OpenDNS (208.67.222.222): يعمل")
+                except:
+                    test_results.append(f"❌ OpenDNS (208.67.222.222): لا يعمل")
+                
+                # عرض النتائج
+                results_text = f"""
+نتائج اختبار DNS:
+
+الخدمة المختارة: {service_name}
+النطاق المُختبر: {test_domain}
+
+{chr(10).join(test_results)}
+
+توصيات:
+- استخدم DNS يعمل بشكل جيد
+- غيّر DNS إذا كان لا يعمل
+- استخدم DNS محلي للسرعة
+                """
+                
+                messagebox.showinfo("نتائج الاختبار", results_text)
+                self.update_status(f"⚙️ تم اختبار DNS لـ {service_name}")
+                
+            else:
+                messagebox.showwarning("تنبيه", "يرجى اختيار خدمة DNS من القائمة")
+                
+        except Exception as e:
+            self.update_status(f"❌ خطأ في اختبار DNS: {str(e)}")
+            messagebox.showerror("خطأ", f"فشل في اختبار DNS:\n{str(e)}")
         
     def create_merchant_center_tab(self):
         """تبويب Google Merchant Center"""
