@@ -42,153 +42,403 @@ class SuperBlueBadgeApp:
                 'code': 'SA', 
                 'domain': '.sa', 
                 'phone': '+966',
+                'dns_providers': [
+                    {'name': 'STC', 'url': 'https://www.stc.com.sa', 'dns_management': 'https://www.stc.com.sa/web/guest/business/internet/domain-registration'},
+                    {'name': 'Mobily', 'url': 'https://www.mobily.com.sa', 'dns_management': 'https://www.mobily.com.sa/business/internet/domain-services'},
+                    {'name': 'Zain', 'url': 'https://www.sa.zain.com', 'dns_management': 'https://www.sa.zain.com/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/saudi-arabia.html', 'api': None},
                     {'name': 'Grizzly SMS', 'url': 'https://grizzlysms.com/ar/countries/saudi-arabia', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/saudi-arabia/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'الإمارات': {
                 'code': 'AE', 
                 'domain': '.ae', 
                 'phone': '+971',
+                'dns_providers': [
+                    {'name': 'Etisalat', 'url': 'https://www.etisalat.ae', 'dns_management': 'https://www.etisalat.ae/en/business/enterprise-solutions/domain-services'},
+                    {'name': 'Du', 'url': 'https://www.du.ae', 'dns_management': 'https://www.du.ae/business/enterprise-solutions'},
+                    {'name': 'Virgin Mobile', 'url': 'https://www.virginmobile.ae', 'dns_management': 'https://www.virginmobile.ae/business'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/united-arab-emirates.html', 'api': None},
                     {'name': 'Receive-SMS.cc', 'url': 'https://ar.receive-sms.cc/country/united-arab-emirates', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/united-arab-emirates/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'مصر': {
                 'code': 'EG', 
                 'domain': '.eg', 
                 'phone': '+20',
+                'dns_providers': [
+                    {'name': 'TE Data', 'url': 'https://www.tedata.net', 'dns_management': 'https://www.tedata.net/eg/ar/business/enterprise-solutions'},
+                    {'name': 'Orange Egypt', 'url': 'https://www.orange.eg', 'dns_management': 'https://www.orange.eg/ar/business/enterprise-solutions'},
+                    {'name': 'Vodafone Egypt', 'url': 'https://www.vodafone.eg', 'dns_management': 'https://www.vodafone.eg/ar/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/egypt.html', 'api': None},
                     {'name': 'Grizzly SMS', 'url': 'https://grizzlysms.com/ar/countries/egypt', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/egypt/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'الكويت': {
                 'code': 'KW', 
                 'domain': '.kw', 
                 'phone': '+965',
+                'dns_providers': [
+                    {'name': 'Zain Kuwait', 'url': 'https://www.kw.zain.com', 'dns_management': 'https://www.kw.zain.com/business/enterprise-solutions'},
+                    {'name': 'Ooredoo Kuwait', 'url': 'https://www.ooredoo.kw', 'dns_management': 'https://www.ooredoo.kw/business/enterprise-solutions'},
+                    {'name': 'STC Kuwait', 'url': 'https://www.stc.com.kw', 'dns_management': 'https://www.stc.com.kw/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'Receive-SMS.cc', 'url': 'https://ar.receive-sms.cc/country/kuwait', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/kuwait/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'قطر': {
                 'code': 'QA', 
                 'domain': '.qa', 
                 'phone': '+974',
+                'dns_providers': [
+                    {'name': 'Ooredoo Qatar', 'url': 'https://www.ooredoo.qa', 'dns_management': 'https://www.ooredoo.qa/business/enterprise-solutions'},
+                    {'name': 'Vodafone Qatar', 'url': 'https://www.vodafone.qa', 'dns_management': 'https://www.vodafone.qa/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/qatar.html', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/qatar/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'البحرين': {
                 'code': 'BH', 
                 'domain': '.bh', 
                 'phone': '+973',
+                'dns_providers': [
+                    {'name': 'Batelco', 'url': 'https://www.batelco.com', 'dns_management': 'https://www.batelco.com/business/enterprise-solutions'},
+                    {'name': 'Zain Bahrain', 'url': 'https://www.bh.zain.com', 'dns_management': 'https://www.bh.zain.com/business/enterprise-solutions'},
+                    {'name': 'STC Bahrain', 'url': 'https://www.stc.com.bh', 'dns_management': 'https://www.stc.com.bh/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'Receive-SMS.cc', 'url': 'https://ar.receive-sms.cc/country/bahrain', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/bahrain/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'الأردن': {
                 'code': 'JO', 
                 'domain': '.jo', 
                 'phone': '+962',
+                'dns_providers': [
+                    {'name': 'Orange Jordan', 'url': 'https://www.orange.jo', 'dns_management': 'https://www.orange.jo/ar/business/enterprise-solutions'},
+                    {'name': 'Zain Jordan', 'url': 'https://www.jo.zain.com', 'dns_management': 'https://www.jo.zain.com/business/enterprise-solutions'},
+                    {'name': 'Umniah', 'url': 'https://www.umniah.com', 'dns_management': 'https://www.umniah.com/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/jordan.html', 'api': None},
                     {'name': 'Grizzly SMS', 'url': 'https://grizzlysms.com/ar/countries/jordan', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'لبنان': {
                 'code': 'LB', 
                 'domain': '.lb', 
                 'phone': '+961',
+                'dns_providers': [
+                    {'name': 'Touch', 'url': 'https://www.touch.com.lb', 'dns_management': 'https://www.touch.com.lb/business/enterprise-solutions'},
+                    {'name': 'Alfa', 'url': 'https://www.alfa.com.lb', 'dns_management': 'https://www.alfa.com.lb/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'Receive-SMS.cc', 'url': 'https://ar.receive-sms.cc/country/lebanon', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/lebanon/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'العراق': {
                 'code': 'IQ', 
                 'domain': '.iq', 
                 'phone': '+964',
+                'dns_providers': [
+                    {'name': 'Zain Iraq', 'url': 'https://www.iq.zain.com', 'dns_management': 'https://www.iq.zain.com/business/enterprise-solutions'},
+                    {'name': 'AsiaCell', 'url': 'https://www.asiacell.com', 'dns_management': 'https://www.asiacell.com/business/enterprise-solutions'},
+                    {'name': 'Korek', 'url': 'https://www.korektel.com', 'dns_management': 'https://www.korektel.com/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/iraq.html', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/iraq/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'سوريا': {
                 'code': 'SY', 
                 'domain': '.sy', 
                 'phone': '+963',
+                'dns_providers': [
+                    {'name': 'Syriatel', 'url': 'https://www.syriatel.sy', 'dns_management': 'https://www.syriatel.sy/business/enterprise-solutions'},
+                    {'name': 'MTN Syria', 'url': 'https://www.mtn.com.sy', 'dns_management': 'https://www.mtn.com.sy/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'Receive-SMS.cc', 'url': 'https://ar.receive-sms.cc/country/syria', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'المغرب': {
                 'code': 'MA', 
                 'domain': '.ma', 
                 'phone': '+212',
+                'dns_providers': [
+                    {'name': 'Maroc Telecom', 'url': 'https://www.iam.ma', 'dns_management': 'https://www.iam.ma/business/enterprise-solutions'},
+                    {'name': 'Orange Morocco', 'url': 'https://www.orange.ma', 'dns_management': 'https://www.orange.ma/ar/business/enterprise-solutions'},
+                    {'name': 'INWI', 'url': 'https://www.inwi.ma', 'dns_management': 'https://www.inwi.ma/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/morocco.html', 'api': None},
                     {'name': 'Grizzly SMS', 'url': 'https://grizzlysms.com/ar/countries/morocco', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/morocco/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'الجزائر': {
                 'code': 'DZ', 
                 'domain': '.dz', 
                 'phone': '+213',
+                'dns_providers': [
+                    {'name': 'Algérie Télécom', 'url': 'https://www.algerietelecom.dz', 'dns_management': 'https://www.algerietelecom.dz/business/enterprise-solutions'},
+                    {'name': 'Ooredoo Algeria', 'url': 'https://www.ooredoo.dz', 'dns_management': 'https://www.ooredoo.dz/business/enterprise-solutions'},
+                    {'name': 'Djezzy', 'url': 'https://www.djezzy.dz', 'dns_management': 'https://www.djezzy.dz/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/algeria.html', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/algeria/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'تونس': {
                 'code': 'TN', 
                 'domain': '.tn', 
                 'phone': '+216',
+                'dns_providers': [
+                    {'name': 'Tunisie Télécom', 'url': 'https://www.tunisietelecom.tn', 'dns_management': 'https://www.tunisietelecom.tn/business/enterprise-solutions'},
+                    {'name': 'Orange Tunisia', 'url': 'https://www.orange.tn', 'dns_management': 'https://www.orange.tn/ar/business/enterprise-solutions'},
+                    {'name': 'Ooredoo Tunisia', 'url': 'https://www.ooredoo.tn', 'dns_management': 'https://www.ooredoo.tn/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'Receive-SMS.cc', 'url': 'https://ar.receive-sms.cc/country/tunisia', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/tunisia/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'ليبيا': {
                 'code': 'LY', 
                 'domain': '.ly', 
                 'phone': '+218',
+                'dns_providers': [
+                    {'name': 'Libya Telecom', 'url': 'https://www.ltt.ly', 'dns_management': 'https://www.ltt.ly/business/enterprise-solutions'},
+                    {'name': 'Al-Madar', 'url': 'https://www.almadar.ly', 'dns_management': 'https://www.almadar.ly/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/libya.html', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'السودان': {
                 'code': 'SD', 
                 'domain': '.sd', 
                 'phone': '+249',
+                'dns_providers': [
+                    {'name': 'Sudatel', 'url': 'https://www.sudatel.sd', 'dns_management': 'https://www.sudatel.sd/business/enterprise-solutions'},
+                    {'name': 'Zain Sudan', 'url': 'https://www.sd.zain.com', 'dns_management': 'https://www.sd.zain.com/business/enterprise-solutions'},
+                    {'name': 'MTN Sudan', 'url': 'https://www.mtn.com.sd', 'dns_management': 'https://www.mtn.com.sd/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/sudan/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'عمان': {
                 'code': 'OM', 
                 'domain': '.om', 
                 'phone': '+968',
+                'dns_providers': [
+                    {'name': 'Omantel', 'url': 'https://www.omantel.om', 'dns_management': 'https://www.omantel.om/business/enterprise-solutions'},
+                    {'name': 'Ooredoo Oman', 'url': 'https://www.ooredoo.om', 'dns_management': 'https://www.ooredoo.om/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'YallaSMS', 'url': 'https://yallasms.com/country/oman.html', 'api': None},
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/oman/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             },
             'اليمن': {
                 'code': 'YE', 
                 'domain': '.ye', 
                 'phone': '+967',
+                'dns_providers': [
+                    {'name': 'Yemen Net', 'url': 'https://www.yemen.net.ye', 'dns_management': 'https://www.yemen.net.ye/business/enterprise-solutions'},
+                    {'name': 'Sabafon', 'url': 'https://www.sabafon.com', 'dns_management': 'https://www.sabafon.com/business/enterprise-solutions'},
+                    {'name': 'MTN Yemen', 'url': 'https://www.mtn.com.ye', 'dns_management': 'https://www.mtn.com.ye/business/enterprise-solutions'}
+                ],
                 'sms_services': [
                     {'name': 'SMS-OL', 'url': 'https://www.sms-ol.com/ar-SA/countries/yemen/', 'api': None}
+                ],
+                'temp_mail_domains': [
+                    '1secmail.com', '1secmail.org', '1secmail.net',
+                    'guerrillamail.com', 'guerrillamail.org',
+                    '10minutemail.com', '10minutemail.net'
+                ],
+                'real_dns_services': [
+                    'https://dns.google.com/resolve?name=',
+                    'https://cloudflare-dns.com/dns-query?name=',
+                    'https://doh.pub/dns-query?name='
                 ]
             }
         }
