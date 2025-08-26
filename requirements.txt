@@ -2,12 +2,12 @@
 # Required Python libraries for running the tools
 
 # DNS resolution and network tools
-dnspython==2.4.2
-requests==2.31.0
+dnspython>=2.4.0
+requests>=2.31.0
 
 # HTML parsing and web scraping
-beautifulsoup4==4.12.2
-lxml==4.9.3
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
 
 # GUI Framework (built-in with Python)
 # tkinter (built-in with Python)
@@ -21,15 +21,15 @@ lxml==4.9.3
 # email (built-in with Python)
 
 # Optional: Additional useful libraries
-urllib3==2.0.7
-certifi==2023.11.17
+urllib3>=2.0.0
+certifi>=2023.0.0
 
 # For better JSON handling
-simplejson==3.19.2
+simplejson>=3.19.0
 
 # For enhanced HTTP requests
-httpx==0.25.2
+httpx>=0.25.0
 
 # For email functionality
-secure-smtplib==0.1.1
-Pillow
+secure-smtplib>=0.1.0
+Pillow>=10.0.0
