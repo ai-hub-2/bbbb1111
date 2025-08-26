@@ -230,7 +230,7 @@ Allow: /'''
         return meta_tags
     
     def create_about_page_content(self):
-        """إنشاء محتوى صفحة "حول""""
+        """إنشاء محتوى صفحة حول"""
         about_content = f'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
