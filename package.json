@@ -1,0 +1,37 @@
+{
+  "name": "blue-badge-cloudflare-app",
+  "version": "1.0.0",
+  "description": "Blue Badge Application for Cloudflare Pages",
+  "main": "cloudflare_app.py",
+  "scripts": {
+    "build": "pip install -r requirements_cloudflare.txt",
+    "start": "streamlit run cloudflare_app.py",
+    "deploy": "wrangler pages deploy",
+    "dev": "wrangler pages dev"
+  },
+  "keywords": [
+    "cloudflare",
+    "pages",
+    "streamlit",
+    "blue-badge",
+    "dns",
+    "seo"
+  ],
+  "author": "SHΔDØW.EXE",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/blue-badge-cloudflare-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/blue-badge-cloudflare-app/issues"
+  },
+  "homepage": "https://your-domain.com"
+}
