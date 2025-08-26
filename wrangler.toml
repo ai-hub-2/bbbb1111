@@ -1,0 +1,32 @@
+name = "blue-badge-app"
+main = "cloudflare_app.py"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "blue-badge-app-prod"
+route = "your-domain.com/*"
+zone_id = "your-zone-id"
+
+[env.staging]
+name = "blue-badge-app-staging"
+route = "staging.your-domain.com/*"
+zone_id = "your-zone-id"
+
+[build]
+command = "pip install -r requirements_cloudflare.txt"
+upload.format = "service-worker"
+
+[build.upload]
+format = "service-worker"
+
+[site]
+bucket = "./public"
+entry-point = "workers-site"
+
+[env.production.vars]
+ENVIRONMENT = "production"
+CLOUDFLARE_PAGES = "true"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+CLOUDFLARE_PAGES = "true"

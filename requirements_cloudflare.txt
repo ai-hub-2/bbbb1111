@@ -1,0 +1,38 @@
+# مكتبات Python المطلوبة لـ Cloudflare Pages
+# Required Python libraries for Cloudflare Pages
+
+# Streamlit - إطار العمل السحابي
+streamlit>=1.28.0
+
+# المكتبات الأساسية
+requests>=2.31.0
+dnspython>=2.4.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# معالجة البيانات والرسوم البيانية
+pandas>=2.0.0
+plotly>=5.15.0
+numpy>=1.24.0
+
+# مكتبات إضافية للتطبيق السحابي
+streamlit-ace>=0.1.1
+streamlit-option-menu>=0.3.6
+
+# مكتبات HTTP متقدمة
+httpx>=0.25.0
+urllib3>=2.0.0
+certifi>=2023.0.0
+
+# معالجة JSON
+simplejson>=3.19.0
+
+# معالجة الصور
+Pillow>=10.0.0
+
+# مكتبات إضافية للواجهة
+altair>=5.0.0
+pydeck>=0.8.0
+
+# مكتبات متوافقة مع Cloudflare
+# (مكتبات خفيفة ومتوافقة مع بيئة Cloudflare)

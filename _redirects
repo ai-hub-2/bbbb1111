@@ -1,0 +1,17 @@
+# Cloudflare Pages Redirects
+# إعادة توجيه Cloudflare Pages
+
+# إعادة توجيه جميع الطلبات إلى التطبيق الرئيسي
+/*    /index.html   200
+
+# إعادة توجيه API calls
+/api/*    /api/:splat    200
+
+# إعادة توجيه الصفحات
+/dashboard    /    200
+/login       /    200
+/register    /    200
+
+# إعادة توجيه الأخطاء
+/404    /    404
+/500    /    500
