@@ -1,0 +1,23 @@
+# مكتبات Python المطلوبة للتطبيق الحقيقي
+# Required Python libraries for the real application
+
+# DNS resolution and network tools
+dnspython==2.4.2
+requests==2.31.0
+
+# HTML parsing and web scraping
+beautifulsoup4==4.12.2
+lxml==4.9.3
+
+# For better JSON handling
+simplejson==3.19.2
+
+# For enhanced HTTP requests
+httpx==0.25.2
+
+# For email functionality
+secure-smtplib==0.1.1
+
+# Optional: Additional useful libraries
+urllib3==2.0.7
+certifi==2023.11.17
