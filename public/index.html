@@ -74,6 +74,9 @@
     <!-- Super Tools JavaScript -->
     <script src="/js/tools.js"></script>
     
+    <!-- Real Tools JavaScript -->
+    <script src="/js/real_tools.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -493,6 +496,248 @@
             border-color: #3b82f6;
             color: #3b82f6;
         }
+        
+        /* Real Tools Styles */
+        .real-tools {
+            margin: 40px 0;
+            padding: 40px 0;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            border-radius: 20px;
+        }
+        
+        .real-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .real-tool-card {
+            background: rgba(16, 185, 129, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #10b981;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .real-tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .real-tool-card:hover::before {
+            left: 100%;
+        }
+        
+        .real-tool-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: #059669;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.4);
+        }
+        
+        .real-tool-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .real-tool-card h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .real-tool-card p {
+            color: #065f46;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
+        .tool-status {
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #10b981; }
+            to { box-shadow: 0 0 20px #10b981, 0 0 30px #10b981; }
+        }
+        
+        /* Real Modal Styles */
+        .real-tool-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+        }
+        
+        .real-modal-content {
+            background: linear-gradient(135deg, #065f46, #047857);
+            border-radius: 25px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 3px solid #10b981;
+            box-shadow: 0 25px 50px rgba(16, 185, 129, 0.5);
+        }
+        
+        .real-modal-header {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 25px;
+            border-radius: 22px 22px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .real-modal-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .real-close {
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .real-close:hover {
+            color: #ef4444;
+            transform: scale(1.2);
+        }
+        
+        .real-modal-body {
+            padding: 35px;
+            color: white;
+        }
+        
+        .real-modal-body h3 {
+            color: #10b981;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            text-align: center;
+        }
+        
+        .real-modal-body .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .real-modal-body input,
+        .real-modal-body select,
+        .real-modal-body textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 8px 0;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .real-modal-body input:focus,
+        .real-modal-body select:focus,
+        .real-modal-body textarea:focus {
+            outline: none;
+            border-color: #34d399;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+        }
+        
+        .real-modal-body textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .real-modal-body button {
+            background: linear-gradient(45deg, #10b981, #34d399);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .real-modal-body button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+        }
+        
+        .cf-actions,
+        .ssl-actions,
+        .temp-mail-actions,
+        .phone-actions,
+        .complaint-actions,
+        .website-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .real-result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid;
+            font-size: 1rem;
+        }
+        
+        .real-result.success {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #10b981;
+        }
+        
+        .real-result.error {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .real-result.info {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
     </style>
 </head>
 <body>
@@ -532,6 +777,13 @@
         <section class="super-tools">
             <h2 style="color: #3b82f6; margin-bottom: 20px; text-align: center;">🛠️ الأدوات الخارقة - SUPER TOOLS!</h2>
             <div id="toolsContainer"></div>
+        </section>
+        
+        <!-- Real Tools Section -->
+        <section class="real-tools">
+            <h2 style="color: #10b981; margin-bottom: 20px; text-align: center;">🚀🚀🚀 الأدوات الحقيقية الخارقة - REAL WORKING TOOLS! 🚀🚀🚀</h2>
+            <p style="text-align: center; color: #cbd5e1; margin-bottom: 30px;">🔥 جميع الأدوات تعمل فعلياً مع APIs حقيقية! 🔥</p>
+            <div id="realToolsContainer"></div>
         </section>
         
         <section class="features">
