@@ -19,7 +19,6 @@ command = "pip install -r requirements_cloudflare.txt"
 
 [site]
 bucket = "./public"
-entry-point = "workers-site"
 
 [env.production.vars]
 ENVIRONMENT = "production"
