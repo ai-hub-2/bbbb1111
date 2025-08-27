@@ -1,55 +1,104 @@
-# Requirements for All Tools - متطلبات جميع الأدوات
-# متطلبات شاملة لجميع الأدوات المنفصلة
+# 🔥🔥🔥 متطلبات جميع الأدوات الخارقة! 🔥🔥🔥
+# Requirements for all SUPER TOOLS!
 
-# Core dependencies - المتطلبات الأساسية
-streamlit>=1.28.0
-requests>=2.31.0
-dnspython>=2.4.2
-pandas>=2.0.0
-plotly>=5.17.0
+# === DNS TOOLS ===
+dnspython==2.4.2
+requests==2.31.0
 
-# Advanced features - الميزات المتقدمة
-cryptography>=41.0.0
-qrcode>=7.4.0
-Pillow>=10.0.0
-aiohttp>=3.8.0
-asyncio
+# === WEB SCRAPING ===
+beautifulsoup4==4.12.2
+lxml==4.9.3
+selenium==4.15.2
+webdriver-manager==4.0.1
 
-# Data handling - معالجة البيانات
-numpy>=1.24.0
-openpyxl>=3.1.0
-xlrd>=2.0.0
+# === EMAIL TOOLS ===
+secure-smtplib==0.1.1
+imaplib2==3.6
+email-validator==2.1.0
 
-# Web scraping and automation - استخراج الويب والأتمتة
-beautifulsoup4>=4.12.0
-selenium>=4.15.0
-webdriver-manager>=4.0.0
+# === NETWORK TOOLS ===
+httpx==0.25.2
+urllib3==2.0.7
+certifi==2023.11.17
+aiohttp==3.9.1
+asyncio==3.4.3
 
-# Network and security - الشبكة والأمان
-urllib3>=2.0.0
-certifi>=2023.11.0
-pyOpenSSL>=23.2.0
+# === DATA PROCESSING ===
+pandas==2.1.4
+numpy==1.25.2
+openpyxl==3.1.2
+xlrd==2.0.1
 
-# Additional utilities - أدوات إضافية
-python-dotenv>=1.0.0
-click>=8.1.0
-rich>=13.6.0
+# === IMAGE PROCESSING ===
+Pillow==10.1.0
+opencv-python==4.8.1.78
+matplotlib==3.8.2
 
-# System utilities - أدوات النظام
-psutil>=5.9.0
-platform
-subprocess
+# === AI & ML ===
+transformers==4.36.2
+torch==2.1.2
+scikit-learn==1.3.2
 
-# JSON and data handling - معالجة JSON والبيانات
-json
-datetime
-time
-random
-string
-secrets
-hashlib
-hmac
-base64
-io
-os
-pathlib
+# === CLOUDFLARE TOOLS ===
+cloudflare==2.19.1
+wrangler==3.22.1
+
+# === GOOGLE TOOLS ===
+google-auth==2.23.4
+google-auth-oauthlib==1.1.0
+google-auth-httplib2==0.1.1
+google-api-python-client==2.108.0
+
+# === SECURITY TOOLS ===
+cryptography==41.0.8
+pycryptodome==3.19.0
+hashlib2==1.0.0
+
+# === UTILITIES ===
+python-dotenv==1.0.0
+click==8.1.7
+rich==13.7.0
+tqdm==4.66.1
+colorama==0.4.6
+
+# === DATABASE ===
+sqlite3
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+
+# === MONITORING ===
+psutil==5.9.6
+speedtest-cli==2.1.3
+
+# === DEVELOPMENT ===
+black==23.12.1
+flake8==6.1.0
+pytest==7.4.3
+
+# === DEPLOYMENT ===
+gunicorn==21.2.0
+uvicorn==0.25.0
+streamlit==1.29.0
+
+# === SPECIAL TOOLS ===
+# For advanced operations
+paramiko==3.4.0
+fabric==3.2.2
+ansible==9.1.0
+
+# === FINAL POWER ===
+# These will make you UNSTOPPABLE!
+requests-html==0.10.0
+pyppeteer==1.0.2
+playwright==1.40.0
+
+# === ULTIMATE POWER ===
+# The final touch of POWER!
+pyautogui==0.9.54
+keyboard==0.13.5
+mouse==0.7.1
+
+# === LEGENDARY STATUS ===
+# You are now LEGENDARY!
+gitpython==3.1.40
+github3.py==4.0.1
