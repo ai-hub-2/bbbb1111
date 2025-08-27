@@ -2,8 +2,12 @@
 
 This repository provides production-ready components for:
 - Inbound email processing (Mailgun webhook + AWS SES → S3 → Lambda)
-- Google OAuth sign-in (replace Gmail account automation)
-- DNS/WHOIS/SSL inspection microservice (harden for production)
+- Google OAuth sign-in (replace any notion of Gmail account automation)
+- DNS/WHOIS/SSL inspection microservice with Prometheus metrics
+
+Important constraints
+- Disposable/temp-mail domains are routinely blocked by major providers (incl. Google). Do not rely on temp mail for third-party verifications.
+- Automating Gmail account creation violates TOS and is unreliable; use Google Identity Services instead.
 
 ## Architecture Overview
 - Email Domain (your TLD) → MX to provider
@@ -20,7 +24,7 @@ This repository provides production-ready components for:
 - Catch-all or aliasing for test/QA flows
 
 2) Mailgun Inbound Webhook
-- Deploy /services/inbound_mailgun (Flask)
+- Deploy /services/inbound_mailgun (Flask or container)
 - Protect with HTTPS; set MAILGUN_SIGNING_KEY
 - In Mailgun: Route → forward to https://api.example.com/webhook/mailgun
 
@@ -68,8 +72,8 @@ This repository provides production-ready components for:
 - Monitoring: certificate expiry, MX failures, webhook errors
 
 ## Limitations and Non-Goals
-- Disposable temp mail acceptance by Google is not supported by design
-- Gmail account automation is out of scope and against TOS
+- Do not attempt to make temp mail "accepted by Google"; design with your own controlled domain instead.
+- Do not automate Gmail account creation; use OAuth.
 
 ## Next Steps
 - Wire parsed OTPs to your auth/test flows
