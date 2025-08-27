@@ -6,51 +6,65 @@
 	<meta name="mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-	<link rel="apple-touch-icon" href="/web/icons/icon-192.png" />
+	<link rel="apple-touch-icon" sizes="192x192" href="/web/icons/icon-192.png" />
+	<link rel="apple-touch-icon" sizes="512x512" href="/web/icons/icon-512.png" />
 	<title>تشغيل التطبيق - PWA</title>
 	<link rel="manifest" href="/web/manifest.webmanifest" />
 	<meta name="theme-color" content="#0d9488" />
 	<link rel="icon" href="/web/icons/icon-192.png" />
 	<style>
-		:root { color-scheme: dark; }
+		:root { color-scheme: dark; --bg:#0b1220; --card:#0f172a; --border:#1f2937; --text:#e5e7eb; --muted:#94a3b8; --accent:#0d9488; --mutedBtn:#334155; }
 		* { box-sizing: border-box; }
-		body { font-family: system-ui, Tahoma, Arial; margin: 0; background: #0b1220; color: #e5e7eb; }
-		.container { max-width: 560px; margin: 0 auto; padding: 16px; }
-		.card { background: #0f172a; border: 1px solid #1f2937; border-radius: 12px; padding: 16px; }
-		.h1 { font-size: 18px; margin: 0 0 8px; font-weight: 700; }
+		html, body { height: 100%; }
+		body { font-family: system-ui, Tahoma, Arial; margin: 0; background: var(--bg); color: var(--text); -webkit-tap-highlight-color: transparent; }
+		.container { max-width: 640px; margin: 0 auto; padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); }
+		.header { position: sticky; top: 0; z-index: 10; background: linear-gradient(180deg, rgba(11,18,32,.95), rgba(11,18,32,0)); padding-bottom: 8px; margin-bottom: 8px; }
+		.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.25); }
+		.h1 { font-size: 20px; margin: 0 0 8px; font-weight: 800; letter-spacing: .2px; }
 		.h2 { font-size: 16px; margin: 0 0 8px; font-weight: 700; }
-		.p { margin: 0 0 12px; color: #cbd5e1; line-height: 1.5; }
-		.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 10px; background: #0d9488; color: #fff; text-decoration: none; border: 0; cursor: pointer; font-size: 14px; }
-		.btn.secondary { background: #334155; }
+		.p { margin: 0 0 12px; color: #cbd5e1; line-height: 1.6; }
+		.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 14px; border-radius: 12px; background: var(--accent); color: #fff; text-decoration: none; border: 0; cursor: pointer; font-size: 15px; min-height: 44px; transition: opacity .15s ease; }
+		.btn.secondary { background: var(--mutedBtn); }
+		.btn:active { opacity: .85; }
 		.btn:disabled { opacity: .6; cursor: not-allowed; }
-		.row { display: flex; gap: 8px; flex-wrap: wrap; }
-		.note { font-size: 12px; color: #94a3b8; margin-top: 8px; }
-		code { background: #111827; padding: 2px 6px; border-radius: 6px; border: 1px solid #1f2937; font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
-		.footer { text-align: center; color: #94a3b8; font-size: 12px; margin-top: 12px; }
+		.row { display: flex; gap: 10px; flex-wrap: wrap; }
+		.note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+		code { background: #111827; padding: 2px 6px; border-radius: 6px; border: 1px solid var(--border); font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+		.footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 12px; }
+		.spacer { height: 8px; }
+		@media (max-width: 480px) {
+			.row { flex-direction: column; }
+			.btn { width: 100%; }
+			.container { padding-left: 12px; padding-right: 12px; }
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="card">
+		<div class="header">
 			<h1 class="h1">تشغيل التطبيق محلياً (Termux) + تثبيت PWA</h1>
-			<p class="p">يمكنك تثبيت التطبيق كـ PWA على جهازك، وتشغيل التطبيق محلياً عبر Termux بالنقر على زر "بدء التطبيق".</p>
-			<div class="row">
-				<button id="installBtn" class="btn secondary" disabled>تثبيت التطبيق (PWA)</button>
+			<p class="note">مصمّم ليتوافق مع شاشات الهواتف، يدعم التثبيت وإضافة للشاشة الرئيسية.</p>
+		</div>
+		<div class="card">
+			<p class="p">ثبّت التطبيق كـ PWA على جهازك، وشغّل التطبيق محلياً عبر Termux بالنقر على "بدء التطبيق".</p>
+			<div class="row" role="group" aria-label="إجراءات التطبيق">
+				<button id="installBtn" class="btn secondary" disabled aria-disabled="true">تثبيت التطبيق (PWA)</button>
 				<button id="startBtn" class="btn">بدء التطبيق (Termux)</button>
 			</div>
-			<p id="status" class="note"></p>
+			<p id="status" class="note" aria-live="polite"></p>
 		</div>
-		<div class="card" style="margin-top:12px;">
+		<div class="spacer"></div>
+		<div class="card">
 			<h2 class="h2">التحضير على Termux</h2>
 			<ol class="p" style="margin:0; padding-inline-start: 20px;">
 				<li>ثبّت <b>Termux</b> من F-Droid.</li>
 				<li>(اختياري) أنشئ سكربت: <code>~/start_app.sh</code> ثم <code>chmod +x ~/start_app.sh</code>.</li>
-				<li>(اختياري) أضف ملف <code>termux-url-opener</code> في <code>~/bin/</code> لالتقاط الروابط وتشغيل السكربت.</li>
+				<li>(اختياري) أضف <code>termux-url-opener</code> في <code>~/bin/</code> لفتح الروابط وتشغيل السكربت تلقائياً.</li>
 			</ol>
 			<p class="note">زر Termux يعمل على أندرويد فقط، وقد تحتاج للسماح بفتح التطبيقات من المتصفح.</p>
 		</div>
-		<p class="footer">يُفضّل فتح الصفحة عبر HTTPS لتثبيت PWA.</p>
+		<p class="footer">يفضّل فتح الصفحة عبر HTTPS لتثبيت PWA.</p>
 	</div>
-	<script src="/web/app.js"></script>
+	<script src="/web/app.js" defer></script>
 </body>
 </html>
