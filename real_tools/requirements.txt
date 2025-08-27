@@ -1,0 +1,30 @@
+# Requirements for Real Tools - متطلبات الأدوات الحقيقية
+# These packages are required for the real tools to work - هذه الحزم مطلوبة لتعمل الأدوات الحقيقية
+
+# Core dependencies - التبعيات الأساسية
+requests>=2.31.0
+selenium>=4.15.0
+dns-python>=2.4.0
+python-whois>=0.8.0
+
+# Web automation - أتمتة الويب
+webdriver-manager>=4.0.0
+undetected-chromedriver>=3.5.0
+
+# Data processing - معالجة البيانات
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+pandas>=2.0.0
+
+# Network tools - أدوات الشبكة
+urllib3>=2.0.0
+certifi>=2023.0.0
+charset-normalizer>=3.0.0
+
+# Security - الأمان
+cryptography>=41.0.0
+bcrypt>=4.0.0
+
+# Utilities - أدوات مساعدة
+python-dateutil>=2.8.0
+pytz>=2023.0
