@@ -7,6 +7,8 @@ on:
     paths:
       - 'services/inbound_mailgun/**'
       - 'services/dns_ssl_service/**'
+      - 'services/web/**'
+      - 'web/**'
       - '.github/workflows/cloudrun-deploy.yml'
 
 jobs:
@@ -22,8 +24,10 @@ jobs:
       REPO: apps
       MAILGUN_IMAGE: inbound-mailgun
       DNSSSL_IMAGE: dns-ssl-service
+      WEB_IMAGE: web-pwa
       MAILGUN_PORT: '8080'
       DNSSSL_PORT: '9090'
+      WEB_PORT: '8080'
 
     steps:
       - name: Checkout
@@ -54,6 +58,12 @@ jobs:
           docker build -t "$IMAGE_URI" ./services/dns_ssl_service
           docker push "$IMAGE_URI"
 
+      - name: Build and Push Web PWA
+        run: |
+          IMAGE_URI=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${WEB_IMAGE}:latest
+          docker build -t "$IMAGE_URI" ./services/web
+          docker push "$IMAGE_URI"
+
       - name: Deploy Mailgun Webhook to Cloud Run
         run: |
           IMAGE_URI=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${MAILGUN_IMAGE}:latest
@@ -75,7 +85,18 @@ jobs:
             --allow-unauthenticated \
             --port ${DNSSSL_PORT}
 
+      - name: Deploy Web PWA to Cloud Run
+        run: |
+          IMAGE_URI=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${WEB_IMAGE}:latest
+          gcloud run deploy web-pwa \
+            --image "$IMAGE_URI" \
+            --region "$REGION" \
+            --platform managed \
+            --allow-unauthenticated \
+            --port ${WEB_PORT}
+
       - name: Show Service URLs
         run: |
           echo "Inbound Mailgun URL:" $(gcloud run services describe inbound-mailgun --region "$REGION" --format 'value(status.url)')
           echo "DNS/SSL Service URL:" $(gcloud run services describe dns-ssl-service --region "$REGION" --format 'value(status.url)')
+          echo "Web PWA URL:" $(gcloud run services describe web-pwa --region "$REGION" --format 'value(status.url)')
