@@ -2,8 +2,8 @@
 """
 Real Temp Mail Tool - أداة البريد المؤقت الحقيقية
 This tool actually creates real temporary emails - هذه الأداة تنشئ بريد مؤقت حقيقي
-Enhanced for Google acceptance with Arabic countries support
-محسنة لقبول جوجل مع دعم الدول العربية
+Testing-only temp mail with Arabic countries support
+مخصص للاختبار فقط مع دعم الدول العربية
 """
 import os
 import sys
@@ -22,7 +22,7 @@ class RealTempMail:
         self.temp_emails = []
         self.load_emails()
         
-        # Enhanced services with Google-acceptable domains
+        # Public temp-mail services (testing only). Do NOT use for Google or other major providers
         self.services = {
             'guerrilla': {
                 'domains': [
@@ -30,8 +30,7 @@ class RealTempMail:
                     'guerrillamailblock.com', 'grr.la', 'guerrillamail.biz'
                 ],
                 'api': 'https://api.guerrillamail.com/',
-                'web': 'https://www.guerrillamail.com/',
-                'google_acceptable': True
+                'web': 'https://www.guerrillamail.com/'
             },
             '10minutemail': {
                 'domains': [
@@ -39,8 +38,7 @@ class RealTempMail:
                     '10minutemail.info', '10minutemail.biz'
                 ],
                 'api': 'https://10minutemail.com/',
-                'web': 'https://10minutemail.com/',
-                'google_acceptable': True
+                'web': 'https://10minutemail.com/'
             },
             'temp-mail': {
                 'domains': [
@@ -48,8 +46,7 @@ class RealTempMail:
                     'temp-mail.info', 'temp-mail.biz'
                 ],
                 'api': 'https://api.temp-mail.org/',
-                'web': 'https://temp-mail.org/',
-                'google_acceptable': True
+                'web': 'https://temp-mail.org/'
             },
             'mailinator': {
                 'domains': [
@@ -57,8 +54,7 @@ class RealTempMail:
                     'mailinator.info', 'mailinator.biz'
                 ],
                 'api': 'https://api.mailinator.com/',
-                'web': 'https://www.mailinator.com/',
-                'google_acceptable': True
+                'web': 'https://www.mailinator.com/'
             },
             'yopmail': {
                 'domains': [
@@ -66,8 +62,7 @@ class RealTempMail:
                     'yopmail.info', 'yopmail.biz'
                 ],
                 'api': 'https://yopmail.com/',
-                'web': 'https://yopmail.com/',
-                'google_acceptable': True
+                'web': 'https://yopmail.com/'
             }
         }
         
@@ -292,19 +287,18 @@ class RealTempMail:
                 'expires_at': expires_at.isoformat(),
                 'status': 'active',
                 'messages': [],
-                'google_acceptable': self.services[service]['google_acceptable'],
                 'expires_in_hours': expires_hours
             }
             
             self.temp_emails.append(email_info)
             self.save_emails()
             
-            print(f"✅ Temporary email created successfully!")
+            print(f"✅ Temporary email created (testing only)!")
             print(f"📧 Email: {email}")
             print(f"🔑 Password: {password}")
             print(f"🌍 Country: {country_info['name'] if country_info else 'International'}")
             print(f"⏰ Expires: {expires_at.strftime('%Y-%m-%d %H:%M:%S')}")
-            print(f"✅ Google Acceptable: {'Yes' if email_info['google_acceptable'] else 'No'}")
+            print(f"⚠️  Do NOT use with Google/major providers (testing only)")
             
             # Open web interface
             try:
@@ -614,7 +608,6 @@ class RealTempMail:
                 print("=" * 50)
                 print(f"🌐 Web Interface: {service_info['web']}")
                 print(f"🔌 API: {service_info['api']}")
-                print(f"✅ Google Acceptable: {'Yes' if service_info['google_acceptable'] else 'No'}")
                 print(f"🌐 Domains: {', '.join(service_info['domains'])}")
             else:
                 print(f"❌ Service {service} not supported")
@@ -622,8 +615,7 @@ class RealTempMail:
             print("\n🌐 Supported Services:")
             print("=" * 50)
             for service_name, service_info in self.services.items():
-                google_status = "✅" if service_info['google_acceptable'] else "❌"
-                print(f"{service_name}: {google_status} Google Acceptable")
+                print(f"{service_name} (testing only)")
 
 def main():
     """Main function with enhanced menu"""
