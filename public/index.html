@@ -4,6 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔵 التطبيق الخارق للعلامة الزرقاء - Super Blue Badge App</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="تطبيق شامل ومتقدم لاستعادة حساب Google My Business والحصول على العلامة الزرقاء">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Blue Badge App">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- PWA Service Worker -->
+    <script>
+        // تسجيل Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registered:', registration);
+                        
+                        // فحص التحديثات
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    showUpdateNotification();
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('❌ Service Worker registration failed:', error);
+                    });
+            });
+        }
+        
+        // إظهار إشعار التحديث
+        function showUpdateNotification() {
+            if (confirm('🔄 يوجد تحديث جديد! هل تريد تحديث التطبيق؟')) {
+                window.location.reload();
+            }
+        }
+        
+        // طلب إذن الإشعارات
+        function requestNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then((permission) => {
+                    if (permission === 'granted') {
+                        console.log('✅ تم منح إذن الإشعارات');
+                    }
+                });
+            }
+        }
+        
+        // إرسال إشعار
+        function sendNotification(title, body) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(title, { body, icon: '/icons/icon-192x192.png' });
+            }
+        }
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -17,6 +84,7 @@
             color: white;
             min-height: 100vh;
             direction: rtl;
+            overflow-x: hidden;
         }
         
         .container {
@@ -32,6 +100,24 @@
             border-radius: 20px;
             margin-bottom: 40px;
             border: 2px solid #3b82f6;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
         .title {
@@ -40,12 +126,39 @@
             color: #3b82f6;
             margin-bottom: 20px;
             text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            position: relative;
+            z-index: 1;
         }
         
         .subtitle {
             font-size: 1.5rem;
             color: #93c5fd;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .install-button {
+            background: linear-gradient(45deg, #10b981, #3b82f6);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .install-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        }
+        
+        .install-button.hidden {
+            display: none;
         }
         
         .features {
@@ -61,6 +174,23 @@
             border-radius: 15px;
             border: 1px solid #475569;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
         }
         
         .feature-card:hover {
@@ -92,6 +222,7 @@
             background: rgba(16, 185, 129, 0.1);
             border-radius: 20px;
             border: 2px solid #10b981;
+            margin-bottom: 40px;
         }
         
         .cta-button {
@@ -106,6 +237,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none;
             cursor: pointer;
+            margin: 10px;
         }
         
         .cta-button:hover {
@@ -121,6 +253,36 @@
             margin-top: 40px;
         }
         
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .status-bar.show {
+            transform: translateY(0);
+        }
+        
+        .offline-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: none;
+            z-index: 1000;
+        }
+        
         @media (max-width: 768px) {
             .title {
                 font-size: 2rem;
@@ -133,15 +295,73 @@
             .features {
                 grid-template-columns: 1fr;
             }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        /* PWA Specific Styles */
+        .pwa-features {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid #3b82f6;
+        }
+        
+        .pwa-features h3 {
+            color: #3b82f6;
+            margin-bottom: 15px;
+        }
+        
+        .pwa-features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .pwa-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .pwa-features li:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
 <body>
+    <!-- Status Bar -->
+    <div class="status-bar" id="statusBar">
+        🚀 التطبيق يعمل في الخلفية
+    </div>
+    
+    <!-- Offline Indicator -->
+    <div class="offline-indicator" id="offlineIndicator">
+        📡 غير متصل
+    </div>
+    
     <div class="container">
         <header class="header">
             <h1 class="title">🔵 التطبيق الخارق للعلامة الزرقاء</h1>
             <p class="subtitle">Super Blue Badge Application - Complete Solution</p>
+            <button class="install-button hidden" id="installButton">
+                📱 تثبيت التطبيق
+            </button>
         </header>
+        
+        <!-- PWA Features -->
+        <div class="pwa-features">
+            <h3>🚀 ميزات PWA المتقدمة</h3>
+            <ul>
+                <li>✅ يعمل بدون إنترنت</li>
+                <li>✅ يمكن تثبيته على الهاتف</li>
+                <li>✅ إشعارات متقدمة</li>
+                <li>✅ تحديثات تلقائية</li>
+                <li>✅ أداء سريع</li>
+                <li>✅ تجربة مستخدم محسنة</li>
+            </ul>
+        </div>
         
         <section class="features">
             <div class="feature-card">
@@ -199,6 +419,8 @@
                 احصل على العلامة الزرقاء واستعد حساب Google My Business
             </p>
             <button class="cta-button" onclick="startApp()">بدء التطبيق</button>
+            <button class="cta-button" onclick="requestNotificationPermission()">🔔 تفعيل الإشعارات</button>
+            <button class="cta-button" onclick="testNotification()">🧪 اختبار الإشعارات</button>
         </section>
         
         <footer class="footer">
@@ -209,20 +431,137 @@
     </div>
     
     <script>
+        let deferredPrompt;
+        
+        // PWA Installation
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installButton = document.getElementById('installButton');
+            installButton.classList.remove('hidden');
+            
+            installButton.addEventListener('click', () => {
+                installButton.classList.add('hidden');
+                deferredPrompt.prompt();
+                
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ User accepted the install prompt');
+                        sendNotification('🎉 تم التثبيت!', 'تم تثبيت التطبيق بنجاح على جهازك');
+                    } else {
+                        console.log('❌ User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+        
+        // App Installed
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('✅ App was installed');
+            sendNotification('🎉 تم التثبيت!', 'يمكنك الآن استخدام التطبيق من الشاشة الرئيسية');
+        });
+        
+        // Online/Offline Status
+        window.addEventListener('online', () => {
+            document.getElementById('offlineIndicator').style.display = 'none';
+            showStatusBar('✅ متصل بالإنترنت', 3000);
+        });
+        
+        window.addEventListener('offline', () => {
+            document.getElementById('offlineIndicator').style.display = 'block';
+            showStatusBar('📡 غير متصل بالإنترنت', 3000);
+        });
+        
+        // Show Status Bar
+        function showStatusBar(message, duration = 3000) {
+            const statusBar = document.getElementById('statusBar');
+            statusBar.textContent = message;
+            statusBar.classList.add('show');
+            
+            setTimeout(() => {
+                statusBar.classList.remove('show');
+            }, duration);
+        }
+        
+        // App Functions
         function startApp() {
             alert('🚀 التطبيق جاهز للاستخدام!\n\nيمكنك الآن:\n1. تحميل التطبيق\n2. تشغيله محلياً\n3. الحصول على العلامة الزرقاء!');
         }
         
-        // إضافة تأثيرات تفاعلية
+        function testNotification() {
+            sendNotification('🧪 اختبار الإشعارات', 'هذا إشعار تجريبي للتطبيق الخارق!');
+        }
+        
+        // Service Worker Communication
+        function sendMessageToSW(message) {
+            if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage(message);
+            }
+        }
+        
+        // Background Sync
+        function requestBackgroundSync() {
+            if ('serviceWorker' in navigator && 'SyncManager' in window) {
+                navigator.serviceWorker.ready.then((registration) => {
+                    registration.sync.register('background-sync');
+                    showStatusBar('🔄 تم طلب المزامنة في الخلفية', 3000);
+                });
+            }
+        }
+        
+        // Page Visibility API
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                console.log('📱 الصفحة مخفية');
+                sendNotification('📱 التطبيق يعمل في الخلفية', 'يمكنك العودة في أي وقت');
+            } else {
+                console.log('📱 الصفحة مرئية');
+            }
+        });
+        
+        // Add to Home Screen
+        function addToHomeScreen() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+            } else {
+                alert('📱 يمكنك إضافة التطبيق للشاشة الرئيسية من قائمة المتصفح');
+            }
+        }
+        
+        // Initialize App
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.feature-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.style.animation = 'fadeInUp 0.6s ease forwards';
+            console.log('🚀 التطبيق الخارق تم تحميله!');
+            
+            // Request notification permission on load
+            requestNotificationPermission();
+            
+            // Show welcome message
+            setTimeout(() => {
+                showStatusBar('🚀 مرحباً بك في التطبيق الخارق!', 5000);
+            }, 1000);
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'i') {
+                    e.preventDefault();
+                    addToHomeScreen();
+                }
+                if (e.ctrlKey && e.key === 'n') {
+                    e.preventDefault();
+                    testNotification();
+                }
             });
         });
         
-        // إضافة CSS animation
+        // Add animation to feature cards
+        const cards = document.querySelectorAll('.feature-card');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.style.animation = 'fadeInUp 0.6s ease forwards';
+        });
+        
+        // Add CSS animation
         const style = document.createElement('style');
         style.textContent = `
             @keyframes fadeInUp {
