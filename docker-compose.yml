@@ -1,132 +1,13 @@
 # Production Docker Compose - ملف Docker Compose للإنتاج
 # Real production environment - بيئة إنتاج حقيقية
 
-version: '3.8'
-
+version: "3.9"
 services:
-  # Main Application - التطبيق الرئيسي
-  app:
-    build: .
+  inbound_mailgun:
+    build: ./services/inbound_mailgun
+    image: inbound_mailgun:latest
     ports:
-      - "8000:8000"
-    environment:
-      - GOOGLE_MERCHANT_API_KEY=${GOOGLE_MERCHANT_API_KEY}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}
-      - DATABASE_URL=postgresql://postgres:password@db:5432/production
-      - REDIS_URL=redis://redis:6379
-    depends_on:
-      - db
-      - redis
-    volumes:
-      - ./logs:/app/logs
-      - ./data:/app/data
+      - "8080:8080"
+    env_file:
+      - ./services/inbound_mailgun/.env.example
     restart: unless-stopped
-    networks:
-      - production-network
-
-  # PostgreSQL Database - قاعدة بيانات PostgreSQL
-  db:
-    image: postgres:15-alpine
-    environment:
-      - POSTGRES_DB=production
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "5432:5432"
-    restart: unless-stopped
-    networks:
-      - production-network
-
-  # Redis Cache - ذاكرة التخزين المؤقت Redis
-  redis:
-    image: redis:7-alpine
-    command: redis-server --appendonly yes
-    volumes:
-      - redis_data:/data
-    ports:
-      - "6379:6379"
-    restart: unless-stopped
-    networks:
-      - production-network
-
-  # Nginx Load Balancer - موزع الحمل Nginx
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./ssl:/etc/nginx/ssl
-    depends_on:
-      - app
-    restart: unless-stopped
-    networks:
-      - production-network
-
-  # Prometheus Monitoring - مراقبة Prometheus
-  prometheus:
-    image: prom/prometheus:latest
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention.time=200h'
-      - '--web.enable-lifecycle'
-    restart: unless-stopped
-    networks:
-      - production-network
-
-  # Grafana Dashboard - لوحة تحكم Grafana
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
-      - ./grafana/datasources:/etc/grafana/provisioning/datasources
-    restart: unless-stopped
-    networks:
-      - production-network
-
-  # Sentry Error Tracking - تتبع الأخطاء Sentry
-  sentry:
-    image: getsentry/sentry:latest
-    ports:
-      - "9000:9000"
-    environment:
-      - SENTRY_SECRET_KEY=${SENTRY_SECRET_KEY}
-      - SENTRY_POSTGRES_HOST=db
-      - SENTRY_REDIS_HOST=redis
-    depends_on:
-      - db
-      - redis
-    volumes:
-      - sentry_data:/var/lib/sentry
-    restart: unless-stopped
-    networks:
-      - production-network
-
-volumes:
-  postgres_data:
-  redis_data:
-  prometheus_data:
-  grafana_data:
-  sentry_data:
-
-networks:
-  production-network:
-    driver: bridge
