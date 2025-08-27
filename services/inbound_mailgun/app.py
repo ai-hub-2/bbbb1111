@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 MAILGUN_SIGNING_KEY = os.getenv('MAILGUN_SIGNING_KEY', '')
 OTP_REGEX = re.compile(r'\b(\d{4,8})\b')
+SERVICE_ENABLED = os.getenv('SERVICE_ENABLED', 'true').lower() == 'true'
 
 
 def verify_mailgun_signature(timestamp: str, token: str, signature: str) -> bool:
@@ -22,6 +23,9 @@ def verify_mailgun_signature(timestamp: str, token: str, signature: str) -> bool
 
 @app.post('/webhook/mailgun')
 def mailgun_inbound():
+	# Kill-switch: disable real operation if SERVICE_ENABLED=false
+	if not SERVICE_ENABLED:
+		return jsonify({'error': 'service disabled'}), 503
 	# Signature verification
 	signature = request.form.get('signature', '')
 	timestamp = request.form.get('timestamp', '')

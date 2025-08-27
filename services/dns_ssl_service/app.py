@@ -16,6 +16,8 @@ resolver = dns.resolver.Resolver()
 resolver.lifetime = 3.0
 resolver.timeout = 3.0
 
+SERVICE_ENABLED = os.getenv('SERVICE_ENABLED', 'true').lower() == 'true'
+
 @app.get('/metrics')
 def metrics():
 	return generate_latest(), 200, {'Content-Type': CONTENT_TYPE_LATEST}
@@ -23,6 +25,8 @@ def metrics():
 @app.get('/dns')
 @LAT.labels('dns').time()
 def dns_lookup():
+	if not SERVICE_ENABLED:
+		return jsonify({'error': 'service disabled'}), 503
 	REQS.labels('dns').inc()
 	domain = request.args.get('domain', '')
 	record = request.args.get('type', 'A').upper()
@@ -40,6 +44,8 @@ def dns_lookup():
 @app.get('/ssl')
 @LAT.labels('ssl').time()
 def ssl_info():
+	if not SERVICE_ENABLED:
+		return jsonify({'error': 'service disabled'}), 503
 	REQS.labels('ssl').inc()
 	host = request.args.get('host', '')
 	port = int(request.args.get('port', '443'))
