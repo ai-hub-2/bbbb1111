@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>تشغيل التطبيق - PWA</title>
+	<link rel="manifest" href="/web/manifest.webmanifest" />
+	<meta name="theme-color" content="#0d9488" />
+	<link rel="icon" href="/web/icons/icon-192.png" />
+	<style>
+		body { font-family: system-ui, Tahoma, Arial; margin: 0; background: #0f172a; color: #e2e8f0; }
+		.container { max-width: 640px; margin: 0 auto; padding: 24px; }
+		.card { background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 24px; }
+		.h1 { font-size: 22px; margin: 0 0 12px; }
+		.p { margin: 0 0 16px; color: #cbd5e1; }
+		.btn { display: inline-block; padding: 12px 18px; border-radius: 10px; background: #0d9488; color: #fff; text-decoration: none; border: 0; cursor: pointer; }
+		.btn.secondary { background: #334155; }
+		.row { display: flex; gap: 12px; flex-wrap: wrap; }
+		.note { font-size: 13px; color: #94a3b8; margin-top: 12px; }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<h1 class="h1">تشغيل التطبيق محلياً (Termux) + تثبيت PWA</h1>
+			<p class="p">يمكنك تثبيت التطبيق كـ PWA على جهازك، وتشغيل التطبيق محلياً عبر Termux بالنقر على زر "بدء التطبيق".</p>
+			<div class="row">
+				<button id="installBtn" class="btn secondary" disabled>تثبيت التطبيق (PWA)</button>
+				<button id="startBtn" class="btn">بدء التطبيق (Termux)</button>
+			</div>
+			<p class="note">ملاحظة: يعمل زر Termux على أندرويد (Chrome/Edge) فقط، وقد يحتاج تفعيل الإطلاق للتطبيقات عبر روابط intent.</p>
+		</div>
+		<div class="card" style="margin-top:16px;">
+			<h2 class="h1" style="font-size:18px;">التحضير على Termux</h2>
+			<ol class="p">
+				<li>ثبّت تطبيق <b>Termux</b> من F-Droid.</li>
+				<li>(اختياري) أنشئ سكربت تشغيل: <code>~/start_app.sh</code> واجعله قابلاً للتنفيذ: <code>chmod +x ~/start_app.sh</code>.</li>
+				<li>(اختياري) أضف <code>termux-url-opener</code> في <code>~/bin/</code> لالتقاط الروابط وتمريرها للسكربت.</li>
+			</ol>
+			<p class="note">للتشغيل المباشر عبر intent سنحاول فتح حزمة <code>com.termux</code>، ويمكنك بعدها تنفيذ سكربت التشغيل يدوياً أو عبر الإضافات.</p>
+		</div>
+	</div>
+	<script src="/web/app.js"></script>
+</body>
+</html>
