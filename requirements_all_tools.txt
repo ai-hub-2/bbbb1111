@@ -1,0 +1,55 @@
+# Requirements for All Tools - متطلبات جميع الأدوات
+# متطلبات شاملة لجميع الأدوات المنفصلة
+
+# Core dependencies - المتطلبات الأساسية
+streamlit>=1.28.0
+requests>=2.31.0
+dnspython>=2.4.2
+pandas>=2.0.0
+plotly>=5.17.0
+
+# Advanced features - الميزات المتقدمة
+cryptography>=41.0.0
+qrcode>=7.4.0
+Pillow>=10.0.0
+aiohttp>=3.8.0
+asyncio
+
+# Data handling - معالجة البيانات
+numpy>=1.24.0
+openpyxl>=3.1.0
+xlrd>=2.0.0
+
+# Web scraping and automation - استخراج الويب والأتمتة
+beautifulsoup4>=4.12.0
+selenium>=4.15.0
+webdriver-manager>=4.0.0
+
+# Network and security - الشبكة والأمان
+urllib3>=2.0.0
+certifi>=2023.11.0
+pyOpenSSL>=23.2.0
+
+# Additional utilities - أدوات إضافية
+python-dotenv>=1.0.0
+click>=8.1.0
+rich>=13.6.0
+
+# System utilities - أدوات النظام
+psutil>=5.9.0
+platform
+subprocess
+
+# JSON and data handling - معالجة JSON والبيانات
+json
+datetime
+time
+random
+string
+secrets
+hashlib
+hmac
+base64
+io
+os
+pathlib
