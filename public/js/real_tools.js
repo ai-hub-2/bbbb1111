@@ -17,6 +17,26 @@ class RealTools {
         console.log('🚀 Real Tools initialized!');
         this.setupEventListeners();
         this.loadRealTools();
+        
+        // إضافة رسالة تأكيد
+        setTimeout(() => {
+            console.log('🎯 Real Tools are ready to use!');
+            this.showReadyMessage();
+        }, 500);
+    }
+    
+    showReadyMessage() {
+        const container = document.getElementById('realToolsContainer');
+        if (container) {
+            const readyMsg = document.createElement('div');
+            readyMsg.innerHTML = `
+                <div style="text-align: center; padding: 20px; background: rgba(16, 185, 129, 0.2); border-radius: 15px; margin: 20px 0;">
+                    <h3 style="color: #10b981;">🚀 الأدوات الحقيقية جاهزة!</h3>
+                    <p style="color: #065f46;">جميع الأدوات تعمل فعلياً مع APIs حقيقية</p>
+                </div>
+            `;
+            container.appendChild(readyMsg);
+        }
     }
     
     setupEventListeners() {

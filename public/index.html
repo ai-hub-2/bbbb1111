@@ -72,10 +72,35 @@
     </script>
     
     <!-- Super Tools JavaScript -->
-    <script src="/js/tools.js"></script>
+    <script src="js/tools.js"></script>
     
     <!-- Real Tools JavaScript -->
-    <script src="/js/real_tools.js"></script>
+    <script src="js/real_tools.js"></script>
+    
+    <!-- Initialize Tools -->
+    <script>
+        // تأكد من تحميل الأدوات
+        window.addEventListener('load', function() {
+            console.log('🚀 Page loaded, initializing tools...');
+            
+            // انتظار قليل للتأكد من تحميل جميع الملفات
+            setTimeout(() => {
+                if (window.realTools) {
+                    console.log('✅ Real Tools loaded successfully!');
+                    window.realTools.init();
+                } else {
+                    console.error('❌ Real Tools not loaded!');
+                }
+                
+                if (window.superTools) {
+                    console.log('✅ Super Tools loaded successfully!');
+                    window.superTools.init();
+                } else {
+                    console.error('❌ Super Tools not loaded!');
+                }
+            }, 1000);
+        });
+    </script>
     
     <style>
         * {
