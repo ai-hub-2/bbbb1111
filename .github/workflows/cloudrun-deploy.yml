@@ -1,0 +1,81 @@
+name: Deploy to Cloud Run
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'services/inbound_mailgun/**'
+      - 'services/dns_ssl_service/**'
+      - '.github/workflows/cloudrun-deploy.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    env:
+      REGION: ${{ secrets.GCP_REGION }}
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      REPO: apps
+      MAILGUN_IMAGE: inbound-mailgun
+      DNSSSL_IMAGE: dns-ssl-service
+      MAILGUN_PORT: '8080'
+      DNSSSL_PORT: '9090'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Configure Docker auth for Artifact Registry
+        run: gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
+
+      - name: Build and Push Mailgun Webhook
+        run: |
+          IMAGE_URI=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${MAILGUN_IMAGE}:latest
+          docker build -t "$IMAGE_URI" ./services/inbound_mailgun
+          docker push "$IMAGE_URI"
+
+      - name: Build and Push DNS/SSL Service
+        run: |
+          IMAGE_URI=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${DNSSSL_IMAGE}:latest
+          docker build -t "$IMAGE_URI" ./services/dns_ssl_service
+          docker push "$IMAGE_URI"
+
+      - name: Deploy Mailgun Webhook to Cloud Run
+        run: |
+          IMAGE_URI=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${MAILGUN_IMAGE}:latest
+          gcloud run deploy inbound-mailgun \
+            --image "$IMAGE_URI" \
+            --region "$REGION" \
+            --platform managed \
+            --allow-unauthenticated \
+            --port ${MAILGUN_PORT} \
+            --set-env-vars MAILGUN_SIGNING_KEY=${{ secrets.MAILGUN_SIGNING_KEY }}
+
+      - name: Deploy DNS/SSL Service to Cloud Run
+        run: |
+          IMAGE_URI=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}/${DNSSSL_IMAGE}:latest
+          gcloud run deploy dns-ssl-service \
+            --image "$IMAGE_URI" \
+            --region "$REGION" \
+            --platform managed \
+            --allow-unauthenticated \
+            --port ${DNSSSL_PORT}
+
+      - name: Show Service URLs
+        run: |
+          echo "Inbound Mailgun URL:" $(gcloud run services describe inbound-mailgun --region "$REGION" --format 'value(status.url)')
+          echo "DNS/SSL Service URL:" $(gcloud run services describe dns-ssl-service --region "$REGION" --format 'value(status.url)')
