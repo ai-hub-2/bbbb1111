@@ -80,6 +80,9 @@
     <!-- Working Tools JavaScript -->
     <script src="js/working_tools.js"></script>
     
+    <!-- Real Working Tools JavaScript -->
+    <script src="js/real_working_tools.js"></script>
+    
     <!-- Initialize Tools -->
     <script>
         // تأكد من تحميل الأدوات
@@ -107,6 +110,13 @@
                     window.workingTools.init();
                 } else {
                     console.error('❌ Working Tools not loaded!');
+                }
+                
+                if (window.realWorkingTools) {
+                    console.log('✅ Real Working Tools loaded successfully!');
+                    window.realWorkingTools.init();
+                } else {
+                    console.error('❌ Real Working Tools not loaded!');
                 }
             }, 1000);
         });
@@ -1016,6 +1026,274 @@
             border-color: #3b82f6;
             color: #3b82f6;
         }
+        
+        /* Real Working Tools Styles */
+        .real-working-tools {
+            margin: 40px 0;
+            padding: 40px 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1));
+            border-radius: 20px;
+        }
+        
+        .real-working-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin-top: 35px;
+        }
+        
+        .real-working-tool-card {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 40px;
+            border-radius: 30px;
+            border: 4px solid #8b5cf6;
+            cursor: pointer;
+            transition: all 0.6s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+        }
+        
+        .real-working-tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.7s;
+        }
+        
+        .real-working-tool-card:hover::before {
+            left: 100%;
+        }
+        
+        .real-working-tool-card:hover {
+            transform: translateY(-20px) scale(1.1);
+            border-color: #7c3aed;
+            box-shadow: 0 30px 60px rgba(139, 92, 246, 0.6);
+        }
+        
+        .real-working-tool-icon {
+            font-size: 6rem;
+            margin-bottom: 30px;
+            display: block;
+            animation: realWorkingPulse 4s infinite;
+        }
+        
+        @keyframes realWorkingPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            25% { transform: scale(1.1); opacity: 0.9; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            75% { transform: scale(1.1); opacity: 0.9; }
+        }
+        
+        .real-working-tool-card h3 {
+            color: #8b5cf6;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .real-working-tool-card p {
+            color: #581c87;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .real-tool-status {
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            animation: realWorkingGlow 3s ease-in-out infinite alternate;
+            margin-bottom: 15px;
+        }
+        
+        .real-tool-status.working {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 0 15px #10b981;
+        }
+        
+        .real-tool-status.not-working {
+            background: #ef4444;
+            color: white;
+            box-shadow: 0 0 15px #ef4444;
+        }
+        
+        .real-tool-api {
+            background: rgba(139, 92, 246, 0.2);
+            color: #8b5cf6;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 2px solid #8b5cf6;
+        }
+        
+        @keyframes realWorkingGlow {
+            from { box-shadow: 0 0 15px currentColor; }
+            to { box-shadow: 0 0 30px currentColor, 0 0 45px currentColor; }
+        }
+        
+        /* Real Working Modal Styles */
+        .real-working-tool-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10003;
+        }
+        
+        .real-working-modal-content {
+            background: linear-gradient(135deg, #581c87, #7c3aed);
+            border-radius: 35px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 95vh;
+            overflow-y: auto;
+            border: 5px solid #8b5cf6;
+            box-shadow: 0 35px 70px rgba(139, 92, 246, 0.7);
+        }
+        
+        .real-working-modal-header {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 35px;
+            border-radius: 30px 30px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .real-working-modal-header h2 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+        
+        .real-working-close {
+            font-size: 3.5rem;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .real-working-close:hover {
+            color: #ef4444;
+            transform: scale(1.4);
+        }
+        
+        .real-working-modal-body {
+            padding: 45px;
+            color: white;
+        }
+        
+        .real-working-modal-body h3 {
+            color: #c4b5fd;
+            margin-bottom: 35px;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .real-working-modal-body .input-group {
+            margin-bottom: 35px;
+        }
+        
+        .real-working-modal-body input,
+        .real-working-modal-body select,
+        .real-working-modal-body textarea {
+            width: 100%;
+            padding: 20px;
+            margin: 12px 0;
+            border: 3px solid #8b5cf6;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .real-working-modal-body input:focus,
+        .real-working-modal-body select:focus,
+        .real-working-modal-body textarea:focus {
+            outline: none;
+            border-color: #c4b5fd;
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.7);
+        }
+        
+        .real-working-modal-body textarea {
+            height: 160px;
+            resize: vertical;
+        }
+        
+        .real-working-modal-body button {
+            background: linear-gradient(45deg, #8b5cf6, #c4b5fd);
+            color: white;
+            padding: 20px 45px;
+            border: none;
+            border-radius: 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 15px 10px;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+        }
+        
+        .real-working-modal-body button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.7);
+        }
+        
+        .merchant-actions,
+        .documents-actions,
+        .arabic-actions,
+        .temp-mail-actions,
+        .advanced-actions,
+        .monitoring-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .real-working-result {
+            margin-top: 35px;
+            padding: 30px;
+            border-radius: 25px;
+            border: 3px solid;
+            font-size: 1.2rem;
+            line-height: 1.7;
+        }
+        
+        .real-working-result.success {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #10b981;
+        }
+        
+        .real-working-result.error {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .real-working-result.info {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
     </style>
 </head>
 <body>
@@ -1069,6 +1347,13 @@
             <h2 style="color: #f59e0b; margin-bottom: 20px; text-align: center;">🎯🎯🎯 الأدوات العاملة فعلياً - WORKING TOOLS! 🎯🎯🎯</h2>
             <p style="text-align: center; color: #cbd5e1; margin-bottom: 30px;">✅ جميع الأدوات تم اختبارها وتعمل فعلياً! ✅</p>
             <div id="workingToolsContainer"></div>
+        </section>
+        
+        <!-- Real Working Tools Section -->
+        <section class="real-working-tools">
+            <h2 style="color: #8b5cf6; margin-bottom: 20px; text-align: center;">🚀🚀🚀 الأدوات الحقيقية العاملة فعلياً - REAL WORKING TOOLS! 🚀🚀🚀</h2>
+            <p style="text-align: center; color: #cbd5e1; margin-bottom: 30px;">🔥 جميع الأدوات تعمل فعلياً مع APIs حقيقية! 🔥</p>
+            <div id="realWorkingToolsContainer"></div>
         </section>
         
         <section class="features">
