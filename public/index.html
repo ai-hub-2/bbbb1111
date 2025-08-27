@@ -77,6 +77,9 @@
     <!-- Real Tools JavaScript -->
     <script src="js/real_tools.js"></script>
     
+    <!-- Working Tools JavaScript -->
+    <script src="js/working_tools.js"></script>
+    
     <!-- Initialize Tools -->
     <script>
         // تأكد من تحميل الأدوات
@@ -97,6 +100,13 @@
                     window.superTools.init();
                 } else {
                     console.error('❌ Super Tools not loaded!');
+                }
+                
+                if (window.workingTools) {
+                    console.log('✅ Working Tools loaded successfully!');
+                    window.workingTools.init();
+                } else {
+                    console.error('❌ Working Tools not loaded!');
                 }
             }, 1000);
         });
@@ -763,6 +773,249 @@
             border-color: #3b82f6;
             color: #3b82f6;
         }
+        
+        /* Working Tools Styles */
+        .working-tools {
+            margin: 40px 0;
+            padding: 40px 0;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.1));
+            border-radius: 20px;
+        }
+        
+        .working-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .working-tool-card {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 35px;
+            border-radius: 25px;
+            border: 3px solid #f59e0b;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+        }
+        
+        .working-tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .working-tool-card:hover::before {
+            left: 100%;
+        }
+        
+        .working-tool-card:hover {
+            transform: translateY(-15px) scale(1.08);
+            border-color: #d97706;
+            box-shadow: 0 25px 50px rgba(245, 158, 11, 0.5);
+        }
+        
+        .working-tool-icon {
+            font-size: 5rem;
+            margin-bottom: 25px;
+            display: block;
+            animation: workingPulse 3s infinite;
+        }
+        
+        @keyframes workingPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+        
+        .working-tool-card h3 {
+            color: #f59e0b;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .working-tool-card p {
+            color: #92400e;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .tool-status {
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            display: inline-block;
+            animation: workingGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .tool-status.working {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 0 10px #10b981;
+        }
+        
+        .tool-status.not-working {
+            background: #ef4444;
+            color: white;
+            box-shadow: 0 0 10px #ef4444;
+        }
+        
+        @keyframes workingGlow {
+            from { box-shadow: 0 0 10px currentColor; }
+            to { box-shadow: 0 0 25px currentColor, 0 0 35px currentColor; }
+        }
+        
+        /* Working Modal Styles */
+        .working-tool-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10002;
+        }
+        
+        .working-modal-content {
+            background: linear-gradient(135deg, #92400e, #b45309);
+            border-radius: 30px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 4px solid #f59e0b;
+            box-shadow: 0 30px 60px rgba(245, 158, 11, 0.6);
+        }
+        
+        .working-modal-header {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 30px;
+            border-radius: 26px 26px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .working-modal-header h2 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .working-close {
+            font-size: 3rem;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .working-close:hover {
+            color: #ef4444;
+            transform: scale(1.3);
+        }
+        
+        .working-modal-body {
+            padding: 40px;
+            color: white;
+        }
+        
+        .working-modal-body h3 {
+            color: #fbbf24;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        .working-modal-body .input-group {
+            margin-bottom: 30px;
+        }
+        
+        .working-modal-body input,
+        .working-modal-body select,
+        .working-modal-body textarea {
+            width: 100%;
+            padding: 18px;
+            margin: 10px 0;
+            border: 3px solid #f59e0b;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .working-modal-body input:focus,
+        .working-modal-body select:focus,
+        .working-modal-body textarea:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+        }
+        
+        .working-modal-body textarea {
+            height: 140px;
+            resize: vertical;
+        }
+        
+        .working-modal-body button {
+            background: linear-gradient(45deg, #f59e0b, #fbbf24);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 12px 8px;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+        }
+        
+        .working-modal-body button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(245, 158, 11, 0.6);
+        }
+        
+        .working-result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 20px;
+            border: 3px solid;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .working-result.success {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #10b981;
+        }
+        
+        .working-result.error {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        
+        .working-result.info {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
     </style>
 </head>
 <body>
@@ -809,6 +1062,13 @@
             <h2 style="color: #10b981; margin-bottom: 20px; text-align: center;">🚀🚀🚀 الأدوات الحقيقية الخارقة - REAL WORKING TOOLS! 🚀🚀🚀</h2>
             <p style="text-align: center; color: #cbd5e1; margin-bottom: 30px;">🔥 جميع الأدوات تعمل فعلياً مع APIs حقيقية! 🔥</p>
             <div id="realToolsContainer"></div>
+        </section>
+        
+        <!-- Working Tools Section -->
+        <section class="working-tools">
+            <h2 style="color: #f59e0b; margin-bottom: 20px; text-align: center;">🎯🎯🎯 الأدوات العاملة فعلياً - WORKING TOOLS! 🎯🎯🎯</h2>
+            <p style="text-align: center; color: #cbd5e1; margin-bottom: 30px;">✅ جميع الأدوات تم اختبارها وتعمل فعلياً! ✅</p>
+            <div id="workingToolsContainer"></div>
         </section>
         
         <section class="features">
