@@ -1,0 +1,166 @@
+# Production Prometheus Configuration - إعدادات Prometheus للإنتاج
+# Real monitoring configuration - إعدادات مراقبة حقيقية
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    environment: 'production'
+    application: 'super-blue-badge-app'
+
+rule_files:
+  - "rules/*.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # Prometheus itself - Prometheus نفسه
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    metrics_path: /metrics
+    scrape_interval: 15s
+
+  # Main Application - التطبيق الرئيسي
+  - job_name: 'app'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    honor_labels: true
+
+  # Nginx - خادم Nginx
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:80']
+    metrics_path: /nginx_status
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # PostgreSQL Database - قاعدة بيانات PostgreSQL
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['db:5432']
+    metrics_path: /metrics
+    scrape_interval: 30s
+    scrape_timeout: 15s
+
+  # Redis Cache - ذاكرة التخزين المؤقت Redis
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Node Exporter - مراقب العقد
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+  # Blackbox Exporter - مراقب الصندوق الأسود
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - https://google.com
+        - https://facebook.com
+        - https://github.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+  # Custom Metrics - مقاييس مخصصة
+  - job_name: 'custom-metrics'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /custom-metrics
+    scrape_interval: 30s
+    scrape_timeout: 15s
+    honor_labels: true
+
+  # Health Checks - فحوصات الصحة
+  - job_name: 'health-checks'
+    static_configs:
+      - targets: ['app:8000', 'nginx:80', 'db:5432', 'redis:6379']
+    metrics_path: /health
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    honor_labels: true
+
+  # API Endpoints - نقاط النهاية API
+  - job_name: 'api-endpoints'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /api/health
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    honor_labels: true
+
+  # Business Metrics - مقاييس الأعمال
+  - job_name: 'business-metrics'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /business-metrics
+    scrape_interval: 60s
+    scrape_timeout: 30s
+    honor_labels: true
+
+  # Security Metrics - مقاييس الأمان
+  - job_name: 'security-metrics'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /security-metrics
+    scrape_interval: 60s
+    scrape_timeout: 30s
+    honor_labels: true
+
+  # Performance Metrics - مقاييس الأداء
+  - job_name: 'performance-metrics'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /performance-metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    honor_labels: true
+
+  # Error Metrics - مقاييس الأخطاء
+  - job_name: 'error-metrics'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /error-metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    honor_labels: true
+
+  # User Metrics - مقاييس المستخدمين
+  - job_name: 'user-metrics'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /user-metrics
+    scrape_interval: 60s
+    scrape_timeout: 30s
+    honor_labels: true
+
+  # Transaction Metrics - مقاييس المعاملات
+  - job_name: 'transaction-metrics'
+    static_configs:
+      - targets: ['app:8000']
+    metrics_path: /transaction-metrics
+    scrape_interval: 30s
+    scrape_timeout: 15s
+    honor_labels: true
